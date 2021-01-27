@@ -39,7 +39,7 @@ class Sm3
         return pack('C*', ...$arg);
     }
 
-    public static function sign_file($file)
+    public static function signFile($file)
     {
         $l  = filesize($file) * 8;
         $k  = self::getK($l);
