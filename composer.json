@@ -1,0 +1,25 @@
+{
+    "name": "lizhichao/one-sm",
+    "type": "library",
+    "description": "国密sm3",
+    "keywords": [
+        "php",
+        "sm3"
+    ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "tanszhe",
+            "email": "1018595261@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "OneSm\\": "src/"
+        }
+    }
+}
