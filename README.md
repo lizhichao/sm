@@ -33,4 +33,4 @@ openssl time:4.755973815918ms
 one-sm3 time:5.5310726165771ms
 SM3-PHP time:708.27698707581ms
 ```
-[测试代码bench.php](https://github.com/lizhichao/sm/blob/master/test.php)
+[测试代码bench.php](https://github.com/lizhichao/sm/blob/master/bench.php)
