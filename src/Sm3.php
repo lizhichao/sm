@@ -73,14 +73,14 @@ class Sm3
     private static function toInt($arr)
     {
         foreach ($arr as & $v) {
-            $v = unpack('N', $v)[1];
+            $v = unpack('N*', $v);
         }
         return $arr;
     }
 
     private static function cf($ai, $bi)
     {
-        $wr = self::toInt(str_split($bi, 4));
+        $wr = array_values(unpack('N*', $bi));
         for ($i = 16; $i < 68; $i++) {
             $wr[$i] = self::p1($wr[$i - 16]
                     ^
@@ -97,7 +97,8 @@ class Sm3
             $wr1[] = $wr[$i] ^ $wr[$i + 4];
         }
 
-        list($a, $b, $c, $d, $e, $f, $g, $h) = self::toInt(str_split($ai, 4));
+        list($a, $b, $c, $d, $e, $f, $g, $h) = array_values(unpack('N*', $ai));
+
         for ($i = 0; $i < 64; $i++) {
             $ss1 = self::lm(
                 (self::lm($a, 12) + $e + self::lm(self::t($i), $i) & 0xffffffff),
