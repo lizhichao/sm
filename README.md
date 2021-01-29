@@ -26,11 +26,12 @@ php bench.php
 ```
 结果
 ```
-openssl:7ad7adf191f10aeeb0b2c02e083d03c4c675351022b267722c4cc6589c7836e9
-one-sm3:7ad7adf191f10aeeb0b2c02e083d03c4c675351022b267722c4cc6589c7836e9
-SM3-PHP:b7a0c84f86acd90f41f09d791735baf07ddf8acae6349319f5ab71c375fa37cb
-openssl time:4.755973815918ms
-one-sm3 time:5.5310726165771ms
-SM3-PHP time:708.27698707581ms
+openssl:c4cae8d8730206d130e1eef9de3e00225da0b556cfcb8d0076561352ff19f769
+one-sm3:c4cae8d8730206d130e1eef9de3e00225da0b556cfcb8d0076561352ff19f769
+SM3-PHP:c4cae8d8730206d130e1eef9de3e00225da0b556cfcb8d0076561352ff19f769
+openssl time:4.8391819000244ms
+one-sm3 time:5.7239532470703ms
+SM3-PHP time:684.2360496521ms
+
 ```
 [测试代码bench.php](https://github.com/lizhichao/sm/blob/master/bench.php)

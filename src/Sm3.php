@@ -1,4 +1,5 @@
 <?php
+
 namespace OneSm;
 
 class Sm3
@@ -70,14 +71,6 @@ class Sm3
         return $i < 16 ? 0x79cc4519 : 0x7a879d8a;
     }
 
-    private static function toInt($arr)
-    {
-        foreach ($arr as & $v) {
-            $v = unpack('N*', $v);
-        }
-        return $arr;
-    }
-
     private static function cf($ai, $bi)
     {
         $wr = array_values(unpack('N*', $bi));
@@ -101,11 +94,11 @@ class Sm3
 
         for ($i = 0; $i < 64; $i++) {
             $ss1 = self::lm(
-                (self::lm($a, 12) + $e + self::lm(self::t($i), $i) & 0xffffffff),
+                (self::lm($a, 12) + $e + self::lm(self::t($i), $i % 32) & 0xffffffff),
                 7);
             $ss2 = $ss1 ^ self::lm($a, 12);
-            $tt1 = (self::ff($i, $a, $b, $c) + $d + $ss2 + $wr1[$i] & 0xffffffff);
-            $tt2 = (self::gg($i, $e, $f, $g) + $h + $ss1 + $wr[$i] & 0xffffffff);
+            $tt1 = (self::ff($i, $a, $b, $c) + $d + $ss2 + $wr1[$i]) & 0xffffffff;
+            $tt2 = (self::gg($i, $e, $f, $g) + $h + $ss1 + $wr[$i]) & 0xffffffff;
             $d   = $c;
             $c   = self::lm($b, 9);
             $b   = $a;
@@ -133,11 +126,7 @@ class Sm3
 
     private static function lm($a, $n)
     {
-        $n = $n % 32;
-        $j = ($a << $n);
-        $h = ($j & 0xffffffff00000000) >> 32;
-        $d = $j & 0xffffffff;
-        return $d | $h;
+        return ($a >> (32 - $n) | (($a << $n) & 0xffffffff));
     }
 
     private static function p0($x)
