@@ -28,4 +28,4 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Execute tests
-        run: ./vendor/bin/phpunit --colors=always
+        run: php tests/sm3.php
