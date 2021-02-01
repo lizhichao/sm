@@ -4,3 +4,4 @@
 .svn
 .DS_Store
 composer.lock
+cache/
