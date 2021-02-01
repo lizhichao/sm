@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '7.1', '7.2', '7.4', '8.0' ]
+        php-versions: [ '5.6','7.0','7.1', '7.2', '7.4', '8.0' ]
     name: PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
@@ -22,6 +22,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: none
+          ini-values: opcache.jit_buffer_size=256M, opcache.jit=1205, pcre.jit=1, opcache.enable=1, opcache.enable_cli=1
       - name: Check PHP Version
         run: php -v && php -i | grep opcache
       - name: Install Dependencies
