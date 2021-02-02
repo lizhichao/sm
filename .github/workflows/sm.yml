@@ -27,5 +27,7 @@ jobs:
         run: php -v && php -i | grep opcache
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: Execute tests
+      - name: Execute tests sm3
         run: php tests/sm3.php
+      - name: Execute tests sm4
+        run: php tests/sm4.php
