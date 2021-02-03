@@ -6,6 +6,8 @@
 - sm4
     - ecb
     - cbc
+    - cfb
+    - ofb
 
 
 ## 安装

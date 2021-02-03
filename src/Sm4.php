@@ -70,6 +70,89 @@ class Sm4
         }
     }
 
+
+    /**
+     * @param string $str 加密字符串
+     * @param string $iv 初始化字符串16位
+     * @return string
+     * @throws \Exception
+     */
+    public function enDataOfb($str, $iv)
+    {
+        $this->ck16($iv);
+        $r = '';
+        $this->dd($str);
+        $l = strlen($str) / $this->len;
+        for ($i = 0; $i < $l; $i++) {
+            $s  = substr($str, $i * $this->len, $this->len);
+            $tr = [];
+            $this->encode(array_values(unpack('N*', $iv)), $tr);
+            $iv = pack('N*', ...$tr);
+            $s1 = $s ^ $iv;
+            $r  .= $s1;
+        }
+        return $r;
+    }
+
+    /**
+     * @param string $str 加密字符串
+     * @param string $iv 初始化字符串16位
+     * @return string
+     * @throws \Exception
+     */
+    public function deDataOfb($str, $iv)
+    {
+        return $this->enDataOfb($str, $iv);
+    }
+
+    /**
+     * @param string $str 加密字符串
+     * @param string $iv 初始化字符串16位
+     * @return string
+     * @throws \Exception
+     */
+    public function deDataCfb($str, $iv)
+    {
+        $this->ck16($iv);
+        $r = '';
+        $this->dd($str);
+        $l = strlen($str) / $this->len;
+        for ($i = 0; $i < $l; $i++) {
+            $s  = substr($str, $i * $this->len, $this->len);
+            $tr = [];
+            $this->encode(array_values(unpack('N*', $iv)), $tr);
+            $s1 = pack('N*', ...$tr);
+            $s1 = $s ^ $s1;
+            $iv = $s;
+            $r  .= $s1;
+        }
+        return $r;
+    }
+
+    /**
+     * @param string $str 加密字符串
+     * @param string $iv 初始化字符串16位
+     * @return string
+     * @throws \Exception
+     */
+    public function enDataCfb($str, $iv)
+    {
+        $this->ck16($iv);
+        $r = '';
+        $this->dd($str);
+        $l = strlen($str) / $this->len;
+        for ($i = 0; $i < $l; $i++) {
+            $s  = substr($str, $i * $this->len, $this->len);
+            $tr = [];
+            $this->encode(array_values(unpack('N*', $iv)), $tr);
+            $s1 = pack('N*', ...$tr);
+            $iv = $s ^ $s1;
+            $r  .= $iv;
+        }
+        return $r;
+    }
+
+
     /**
      * @param string $str 加密字符串
      * @param string $iv 初始化字符串16位
