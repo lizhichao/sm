@@ -70,6 +70,58 @@ class Sm4
         }
     }
 
+    private function add($v)
+    {
+        $arr = unpack('N*', $v);
+        $max = 0xffffffff;
+        $j   = 1;
+        for ($i = 4; $i > 0; $i--) {
+            if ($arr[$i] > $max - $j) {
+                $j       = 1;
+                $arr[$i] = 0;
+            } else {
+                $arr[$i] += $j;
+                break;
+            }
+        }
+        return pack('N*', ...$arr);
+    }
+
+    /**
+     * @param string $str 加密字符串
+     * @param string $iv 初始化字符串16位
+     * @return string
+     * @throws \Exception
+     */
+    public function deDataCtr($str, $iv)
+    {
+        return $this->enDataCtr($str, $iv);
+    }
+
+    /**
+     * @param string $str 加密字符串
+     * @param string $iv 初始化字符串16位
+     * @return string
+     * @throws \Exception
+     */
+    public function enDataCtr($str, $iv)
+    {
+        $this->ck16($iv);
+        $r = '';
+        $this->dd($str);
+        $l = strlen($str) / $this->len;
+        for ($i = 0; $i < $l; $i++) {
+            $s  = substr($str, $i * $this->len, $this->len);
+            $tr = [];
+            $this->encode(array_values(unpack('N*', $iv)), $tr);
+            $s1 = pack('N*', ...$tr);
+            $s1 = $s1 ^ $s;
+            $iv = $this->add($iv);
+            $r  .= $s1;
+        }
+        return $r;
+    }
+
 
     /**
      * @param string $str 加密字符串

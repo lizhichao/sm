@@ -8,7 +8,7 @@
     - cbc
     - cfb
     - ofb
-
+    - ctr
 
 ## 安装
 
