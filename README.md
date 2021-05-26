@@ -97,3 +97,4 @@ var_dump(md5($d)===$sign);
 * [一个极简高性能php框架，支持[swoole | php-fpm ]环境](https://github.com/lizhichao/one)
 * [clickhouse tcp 客户端](https://github.com/lizhichao/one-ck)
 * [中文分词](https://github.com/lizhichao/VicWord)
+* [nsq客户端](https://github.com/lizhichao/one-nsq)
